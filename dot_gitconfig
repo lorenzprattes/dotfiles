@@ -1,0 +1,17 @@
+[user]
+	name = Lorenz Prattes
+	email = lorenz.prattes@student.tugraz.at
+[merge]
+	log = true
+	ff = false
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+
+[credential]
+	helper = cache --timeout=360000
+[core]
+	fileMode = false
