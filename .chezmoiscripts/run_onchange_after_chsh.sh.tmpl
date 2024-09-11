@@ -1,0 +1,12 @@
+#!/bin/bash
+
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end }}
+
+set -eufo pipefail
+
+if [ "$(getent passwd $USER | cut -d: -f7)" != "/usr/bin/zsh" ]; then
+  {{ $sudo }} chsh -s /usr/bin/zsh
+fi

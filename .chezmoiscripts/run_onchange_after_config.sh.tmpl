@@ -1,0 +1,30 @@
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end -}}
+
+{{ if eq .osid "linux-fedora" -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+# solaar
+sudo cp ~/.local/share/chezmoi/assets/42-logitech-unify-permissions.rules /etc/udev/rules.d/.
+{{ $sudo }} udevadm control --reload-rules
+
+
+# Docker
+if ! getent group docker > /dev/null 2>&1; then
+  {{ $sudo }} groupadd docker
+fi
+if ! groups $USER | grep -q "\bdocker\b"; then
+  {{ $sudo }} usermod -aG docker $USER
+  newgrp docker
+fi
+
+{{ $sudo }} systemctl enable docker
+{{ $sudo }} systemctl start docker
+
+{{ end -}}
+
+echo "Should be finished. You might wanna consider restarting."
