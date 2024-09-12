@@ -1,0 +1,16 @@
+#!/bin/bash
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{   $sudo = "" -}}
+{{ end -}}
+
+{{ if eq .chezmoi.os "linux" -}}
+  {{ if not .headless -}}
+    set -eufo pipefail
+
+    cd ~/Documents
+    git clone git@gitlab.com:lprattes/lprattes.gitlab.io.git lorenzprattes_com || true
+
+    git clone https://github.com/CZ-NIC/run-or-raise.git /home/$USER/.local/share/gnome-shell/extensions/run-or-raise@edvard.cz || true
+  {{ end -}}
+{{ end -}}
