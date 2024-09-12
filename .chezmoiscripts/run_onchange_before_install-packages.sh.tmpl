@@ -1,43 +1,55 @@
+#!/bin/bash
 {{ $sudo := "sudo " -}}
 {{ if eq .chezmoi.username "root" -}}
 {{   $sudo = "" -}}
 {{ end -}}
 
 {{ if eq .osid "linux-fedora" -}}
-#!/bin/bash
 
-set -eufo pipefail
-{{ $sudo }} dnf upgrade -y
+  set -eufo pipefail
+  {{ $sudo }} dnf upgrade -y
 
-# Basics
+  # Basics
 
-{{ $sudo }} dnf install zsh -y
-{{ $sudo }} dnf install git make automake gcc gcc-c++ gdb cmake kernel-devel -y
+  {{ $sudo }} dnf install zsh htop xclip -y
+  {{ $sudo }} dnf install git make automake gcc gcc-c++ gdb cmake kernel-devel -y
 
-# UX
-{{ $sudo }} dnf install solaar -y
-{{ $sudo }}  dnf install gnome-tweaks -y
+  # Virtualization
+  {{ $sudo }} dnf install virt-manager -y
+  {{ $sudo }}  dnf -y install dnf-plugins-core
+  {{ $sudo }}  dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  {{ $sudo }}  dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-# Codecs and stuff
-{{ $sudo }} dnf group install Multimedia -y
+  {{ if not .headless -}}
+    # UX
+    {{ $sudo }} dnf install solaar -y
+    {{ $sudo }}  dnf install gnome-tweaks -y
 
-# Vscode
-{{ $sudo }} rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
-{{ $sudo }} dnf install code -y
+    # Codecs and stuff
+    {{ $sudo }} dnf group install Multimedia -y
 
-# Docker
-{{ $sudo }}  dnf -y install dnf-plugins-core
-{{ $sudo }}  dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-{{ $sudo }}  dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+    # Vscode
+    {{ $sudo }} rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+    {{ $sudo }} dnf install code -y
 
-# Office stuff
-{{ $sudo }} dnf install thunderbird -y
+    # Office stuff
+    {{ $sudo }} dnf install thunderbird -y
+    {{ $sudo }} dnf install chromium -y
 
-# Flatpak
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub com.spotify.Client
-flatpak install flathub md.obsidian.Obsidian
+    # Sync
+    {{ $sudo }} dnf install onedrive -y
 
+    # Flatpak
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub com.spotify.Client
+    flatpak install flathub md.obsidian.Obsidian
+  {{ end -}}
 
+{{ end -}}
+
+{{ if eq .osid "linux-ubuntu" -}}
+  {{ $sudo }} apt update
+  {{ $sudo }} apt upgrade -y
+  {{ $sudo }} apt install zsh htop xclip git cmake build-essentials -y
 {{ end -}}

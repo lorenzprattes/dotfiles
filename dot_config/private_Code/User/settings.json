@@ -1,0 +1,44 @@
+{
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredHighContrastColorTheme": "Ayu Mirage Bordered",
+    "workbench.preferredHighContrastLightColorTheme": "Ayu Light Bordered",
+    "workbench.preferredLightColorTheme": "Ayu Light",
+    "workbench.preferredDarkColorTheme": "Ayu Mirage Bordered",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.tabSize": 2,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "editor.minimap.enabled": false,
+    "files.autoSave": "onFocusChange",
+    "workbench.startupEditor": "none",
+    "security.workspace.trust.enabled": false,
+    "cmake.buildBeforeRun": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "html.preview.scrollEditorWithPreview": false,
+    "html.preview.scrollPreviewWithEditor": false,
+    "window.experimental.useSandbox": false,
+    "liveshare.anonymousGuestApproval": "accept",
+    "workbench.colorTheme": "Ayu Mirage",
+    "github.copilot.advanced": {
+
+
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": false,
+        "scminput": false
+    },
+    "vsicons.dontShowNewVersionMessage": true,
+    "window.titleBarStyle": "custom",
+    "files.associations": {
+        "*.tmpl": "shellscript",
+        "*.local": "shellscript",
+        "*rc": "shellscript"
+    },
+    "workbench.iconTheme": "ayu",
+    "terminal.integrated.enableMultiLinePasteWarning": "never"
+}

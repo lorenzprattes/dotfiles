@@ -4,9 +4,10 @@
 {{ if eq .chezmoi.username "root" -}}
 {{   $sudo = "" -}}
 {{ end }}
+{{ if eq .chezmoi.os "linux" -}}
+  set -eufo pipefail
 
-set -eufo pipefail
-
-if [ "$(getent passwd $USER | cut -d: -f7)" != "/usr/bin/zsh" ]; then
-  {{ $sudo }} chsh -s /usr/bin/zsh
-fi
+  if [ "$(getent passwd $USER | cut -d: -f7)" != "/usr/bin/zsh" ]; then
+    {{ $sudo }} chsh -s /usr/bin/zsh
+  fi
+{{ end }}

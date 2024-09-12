@@ -4,5 +4,13 @@
 {{- end -}}
 
 
+{{- $headless := false -}}
+{{/* detect headless instances*/}}
+{{- if or (env "CODESPACES") (env "REMOTE_CONTAINERS_IPC") (eq .chezmoi.username "root" "ubuntu" "vagrant" "vscode") -}}
+{{-   $headless = true -}}
+{{- end -}}
+
+
 [data]
     osid = {{ $osID | quote }}
+    headless = {{ $headless }}
