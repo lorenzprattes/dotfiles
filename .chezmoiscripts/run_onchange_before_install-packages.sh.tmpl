@@ -51,5 +51,5 @@
 {{ if eq .osid "linux-ubuntu" -}}
   {{ $sudo }} apt update
   {{ $sudo }} apt upgrade -y
-  {{ $sudo }} apt install zsh htop xclip git cmake build-essentials -y
+  {{ $sudo }} apt install zsh htop xclip git cmake build-essential -y
 {{ end -}}
