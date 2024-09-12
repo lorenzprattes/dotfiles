@@ -1,10 +1,10 @@
+#!/bin/bash
 {{ $sudo := "sudo " -}}
 {{ if eq .chezmoi.username "root" -}}
 {{   $sudo = "" -}}
 {{ end -}}
 
 {{ if eq .osid "linux-fedora" -}}
-  #!/bin/bash
 
   set -eufo pipefail
 
